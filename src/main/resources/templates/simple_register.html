@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Register</title>
+</head>
+<body>
+<h1>Simple register page</h1>
+<form action="/submit" method="post">
+    <label for="name">Indtast navn:</label>
+    <input type="text" id="name" name="name">
+    <label for="email">Indtast Email:</label>
+    <input type="text" id="email" name="email">
+    <label for="password">Indtast Password:</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Log ind</button>
+    <p><a href="/">Gå Tilbage</a></p>
+</form>
+</body>
+</html>
