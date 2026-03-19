@@ -15,12 +15,12 @@ Hvordan strategy pattern løser det
 * context bruger interfacet, ikke de konkrete klasser
 
 Eksempel
-// strategy interface
+// strategy interface //
 public interface PaymentStrategy {
 void pay(int amount);
 }
 
-// concrete strategies
+// concrete strategies //
 public class CreditCardPayment implements PaymentStrategy {
 public void pay(int amount) {
 System.out.println("betaler med kreditkort: " + amount);
@@ -33,7 +33,7 @@ System.out.println("betaler med mobilepay: " + amount);
   }
 }
 
-// context
+// context //
 public class PaymentService {
 private PaymentStrategy strategy;
 
