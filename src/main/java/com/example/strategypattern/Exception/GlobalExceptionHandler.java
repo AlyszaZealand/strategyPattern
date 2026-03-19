@@ -1,26 +1,44 @@
 package com.example.strategypattern.Exception;
 
-
-import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler{
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleBadRequestException(IllegalArgumentException ex) {
-        return ResponseEntity.badRequest().body("error");
+    public String handleBadRequestException(IllegalArgumentException ex, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.addObject("previousUrl", request.getHeader("Referer"));
+        return "redirect:/error";
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception ex) {
-        return ResponseEntity.status(500).body("error");
+    public String handleException(Exception ex, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.addObject("previousUrl", request.getHeader("Referer"));
+        return "redirect:/error";
     }
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<String> handleValidationException(ValidationException ex) {
-        return ResponseEntity.badRequest().body("error");
+    public String handleValidationException(ValidationException ex, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        redirectAttributes.addFlashAttribute("previousUrl", request.getHeader("Referer"));
+        return "redirect:/error";
     }
 
 }
+//--------------Url bliver ikke ændret til error med denne kode--------------------------------------------------------
+//    @ExceptionHandler(ValidationException.class)
+//    public ModelAndView handleValidationException(ValidationException ex, HttpServletRequest request) {
+//        ModelAndView modelAndView = new ModelAndView("error");
+//        modelAndView.addObject("errorMessage", ex.getMessage());
+//        modelAndView.addObject("previousUrl", request.getHeader("Referer"));
+//        return modelAndView;
+//    }
+//---------------------------------------------------------------------------------------------------------------------

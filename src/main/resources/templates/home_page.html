@@ -2,15 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Strict Register</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
 <h1>Welcome to home page</h1>
 <form>
-    <button type="submit">Submit</button>
-
-    <p><a href="/simple_register">Gå til simple register</a></p>
-    <p><a href="/strict_register">Gå til strict Register</a></p>
+    <div style="margin-bottom: 30px"> </div>
+    <p><a href="/simple_register"> &#8618; Gå til simple register</a></p>
+    <div style="margin-bottom: 25px"> </div>
+    <p><a href="/strict_register"> &#8618; Gå til strict Register</a></p>
 </form>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 </body>
 </html>

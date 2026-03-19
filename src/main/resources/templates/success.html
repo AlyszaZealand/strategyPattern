@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
     <meta charset="UTF-8">
     <title>Success</title>
 </head>
 <body>
-
+    <div th:insert="~{parts/navigation::navigation}"></div>
+    <h1>Success page</h1>
+    <div style="margin-bottom: 10px"></div>
+    <h3> Du er blevet registreret</h3>
+        <div style="margin-bottom: 30px"></div>
+            <p><strong>Brugernavn:</strong> <span th:text="${username}"></span></p>
+            <div style="margin-bottom: 25px"></div>
+            <p><strong>Email:</strong> <span th:text="${email}"></span></p>
+        <div style="margin-bottom: 25px"></div>
+    <p><a href="/"> Gå tilbage til home page &#8617; </a></p>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 </body>
 </html>

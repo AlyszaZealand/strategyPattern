@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Strict Register</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <meta charset="UTF-8">
+    <title>Simple Register</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
 <h1>Strict register page</h1>
-<form action="/submit" method="post">
-    <label for="name">Indtast navn:</label>
-    <input type="text" id="name" name="name">
-    <label for="email">Indtast Email:</label>
-    <input type="text" id="email" name="email">
-    <label for="password">Indtast Password:</label>
-    <input type="password" id="password" name="password">
-    <button type="submit">Log ind</button>
-    <p><a href="/">Gå Tilbage</a></p>
+<div style="margin-bottom: 40px"></div>
+<!-----viser error besked hvis validering fejler-->
+<p th:if="${error}" th:text="${error}"></p>
+
+<form th:action="@{/strict_register/success}" th:object="${user}" method="post">
+    <div style="margin-bottom: 0px;">
+        <label>Brugernavn:</label>
+        <input type="text" th:field="*{username}" placeholder="Indtast brugernavn"/>
+        <div style="margin-bottom: 25px" > <label>Brugernavn skal mindst være '6' tegn og må IKKE indholde 'mellemrum'</label></div>
+    </div>
+
+    <div style="margin-bottom: 0px;">
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" placeholder="Indtast email"/>
+        <div style="margin-bottom: 25px" > <label>Email skal indholde '@'. Og den skal enten være '.com', '.net' eller '.org'</label></div>
+    </div>
+
+    <div style="margin-bottom: 0px;">
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" placeholder="Indtast password"/>
+        <div style="margin-bottom: 25px" > <label>Password skal mindst være '10' tegn og indeholde både tal + bogstaver</label></div>
+    </div>
+
+    <button type="submit">Register </button>
+    <div style="margin-bottom: 25px"></div>
+    <p><a href="/">Gå tilbage til home page &#8617;</a></p>
 </form>
+<div th:insert="~{parts/footer :: footer}"></div>
 </body>
 </html>

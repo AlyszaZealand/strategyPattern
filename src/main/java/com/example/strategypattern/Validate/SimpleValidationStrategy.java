@@ -1,7 +1,9 @@
 package com.example.strategypattern.Validate;
 
 import com.example.strategypattern.Exception.ValidationException;
+import org.springframework.stereotype.Component;
 
+@Component("simple")
 public class SimpleValidationStrategy implements ValidationStrategy{
 
     // SIMPLE Validate Email
@@ -14,7 +16,7 @@ public class SimpleValidationStrategy implements ValidationStrategy{
 
     // SIMPLE Validate Password
     public String validatePassword(String password){
-        if (password.length() <= 6 ) {
+        if (password.length() < 6 ) {
             throw new ValidationException("Password skal mindst være '6' tegn");
         }
         return "Godkendt";
@@ -22,8 +24,8 @@ public class SimpleValidationStrategy implements ValidationStrategy{
 
     // SIMPLE Validate Username
     public String validateUsername(String username){
-        if (username.length() <= 3) {
-            throw new ValidationException("Username skal mindst være '3' tegn");
+        if (username.length() < 3) {
+            throw new ValidationException("Brugernavn skal mindst være '3' tegn");
         }
         return "Godkendt";
     }

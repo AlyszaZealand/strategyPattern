@@ -1,24 +1,26 @@
 package com.example.strategypattern.Service;
 
-import com.example.strategypattern.Exception.ValidationException;
-import com.example.strategypattern.Validate.SimpleValidationStrategy;
-import com.example.strategypattern.Validate.StrictValidationStrategy;
+import com.example.strategypattern.Validate.ValidationStrategy;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserService{
 
-    public void validate(){
+    private Map<String, ValidationStrategy> strategies = new HashMap<>();
 
+    public UserService(Map<String, ValidationStrategy> strategies){
+        this.strategies = strategies;
     }
 
     public void validationChoice(String mode, String email, String password, String username){
-        if(mode.equals("simple")){
+        ValidationStrategy validationStrategy = strategies.get(mode);
 
-        }
-        if(mode.equals("strict")){
-
-        }
+        validationStrategy.validateUsername(username);
+        validationStrategy.validateEmail(email);
+        validationStrategy.validatePassword(password);
     }
 
 }

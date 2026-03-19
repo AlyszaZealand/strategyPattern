@@ -1,9 +1,10 @@
 package com.example.strategypattern.Validate;
 
 import com.example.strategypattern.Exception.ValidationException;
+import org.springframework.stereotype.Component;
 
+@Component("strict")
 public class StrictValidationStrategy implements ValidationStrategy {
-
 
     // STRICT Validate Email
     public String validateEmail(String email){
@@ -15,7 +16,7 @@ public class StrictValidationStrategy implements ValidationStrategy {
 
     // STRICT Validate Password
     public String validatePassword(String password){
-        if ((password.length() <= 10) && !password.matches("[0-9] && [a-z]")) {
+        if ((password.length() < 10) && !password.matches("[0-9] && [a-z]")) {
             throw new ValidationException("Password skal mindst være '10' tegn og indeholde både tal + bogstaver");
         }
         return "Godkendt";
@@ -23,8 +24,8 @@ public class StrictValidationStrategy implements ValidationStrategy {
 
     // STRICT Validate Username
     public String validateUsername(String username){
-        if (username.length() <= 6 && username.contains(" ")) {
-            throw new ValidationException("Username skal mindst være '6' tegn og må ikke indholde 'mellemrum'");
+        if (username.length() < 6 && username.contains(" ")) {
+            throw new ValidationException("Brugernavn skal mindst være '6' tegn og må ikke indholde 'mellemrum'");
         }
         return "Godkendt";
     }
