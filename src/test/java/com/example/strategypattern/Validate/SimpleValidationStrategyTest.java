@@ -1,8 +1,5 @@
 package com.example.strategypattern.Validate;
 
-import com.example.strategypattern.Service.UserService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
