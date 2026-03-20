@@ -9,7 +9,14 @@
 <div th:insert="~{parts/navigation::navigation}"></div>
 <h1>Noget gik galt ❌</h1>
 <div style="margin-bottom: 30px"></div>
-<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+<!--<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>-->
+
+    <div th:if="${errors}">
+        <p> Der er fundet flere fejl: </p>
+        <u1>
+            <li th:each="error : ${errors}" th:text="${error}" style="color: red"></li>
+        </u1>
+    </div>
 
 <div style="margin-bottom: 25px"></div>
 <a th:if="${previousUrl}" th:href="${previousUrl}">Gå tilbage &#8617;</a>

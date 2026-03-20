@@ -1,33 +1,52 @@
 package com.example.strategypattern.Validate;
 
-import com.example.strategypattern.Exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 @Component("strict")
 public class StrictValidationStrategy implements ValidationStrategy {
 
     // STRICT Validate Email
+    @Override
     public String validateEmail(String email){
-        if (!email.contains("@") && (!email.contains(".com") || !email.contains(".net") || !email.contains(".org"))) {
-            throw new ValidationException("Email skal indholde '@'. Og den skal enten være '.com', '.net' eller '.org'");
+        if (email == null || !email.contains("@") ) {
+             return "Email skal indeholde '@'";
         }
-        return "Godkendt";
+
+        if(!(email.endsWith(".com") || email.endsWith(".org") || email.endsWith(".net"))){
+            return "Email skal slutte på '.com', '.org' eller '.net'";
+        }
+        return null;
     }
 
     // STRICT Validate Password
+    @Override
     public String validatePassword(String password){
-        if ((password.length() < 10) && !password.matches("[0-9] && [a-z]")) {
-            throw new ValidationException("Password skal mindst være '10' tegn og indeholde både tal + bogstaver");
+        // Først tjekker og giver error besked
+        if ((password == null || password.length() < 10)) {
+            return "Password skal mindst være '10' tegn";
         }
-        return "Godkendt";
+
+        // Derefter udvidet error besked hvis password ER 10 lang
+        boolean containNumber = password.matches(".*\\d.*");
+        boolean containLetter = password.matches(".*[a-zA-Z].*");
+        //Hvis containNumber eller containLetter IKKE er opfyldte, returner vi fejl besked.
+        if(!containNumber || !containLetter) {
+            return "Password skal indeholde både tal og bogstaver";
+        }
+        return null;
     }
 
     // STRICT Validate Username
+    @Override
     public String validateUsername(String username){
-        if (username.length() < 6 && username.contains(" ")) {
-            throw new ValidationException("Brugernavn skal mindst være '6' tegn og må ikke indholde 'mellemrum'");
+        if (username == null || username.length() < 6) {
+            return "Brugernavn skal mindst være '6' tegn";
         }
-        return "Godkendt";
+
+        if(username.contains(" ")){
+            return "Brugernavn må ikke indeholde 'mellemrum'";
+        }
+        return null;
     }
 
 }

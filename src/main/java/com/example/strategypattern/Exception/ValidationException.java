@@ -1,9 +1,17 @@
 package com.example.strategypattern.Exception;
 
+import java.util.List;
+
 public class ValidationException extends RuntimeException {
 
-    public ValidationException(String message) {
-        super(message);
+    private final List<String> errors;
+    public ValidationException(List<String> errors) {
+        super("Validation fejl");
+        this.errors = errors;
+    }
+
+    public List<String> getErrors() {
+        return errors;
     }
 
 }
